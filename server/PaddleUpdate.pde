@@ -4,11 +4,6 @@ void serverEvent(Server s1, Client c1) {
 //  println("p1" + p1);
 }
 
- void serverEvent1(Server s2, Client c2) {
-   p2 = !p2;
-   println(p2);
- }
-
 void paddle1() {
   if (p1) {
     // Receive data1 from client

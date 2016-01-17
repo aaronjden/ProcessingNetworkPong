@@ -6,13 +6,15 @@ void ballSetup() {
 }
 
 boolean ballUp = true;
-int xSpeed = 5;
-int ySpeed = 0;
+int xSpeed = 0;
+int ySpeed = 1;
 
 void drawBall() {
-  game = true;
+  if (mousePressed) {
+    game = !game;
+  }
   fill(255);
-  if(game){
+  if (game) {
     moveBall();
     wallBounce();
     paddleBounce();
@@ -27,13 +29,14 @@ void moveBall() {
 }
 
 void wallBounce() {
-  if(ball1[0] + ball1[3] == width || ball1[0] == ball1[3]){
+  if (ball1[0] + ball1[3] == width || ball1[0] == ball1[3]) {
     xSpeed *= -1;
   }
 }
 
 void paddleBounce() {
-  if(ball1[1] - ball1[3] == data1[1] || ball1[1] + ball1[3] == data2[1] - data2[3]){
+  if (ball1[1] - (ball1[3]/2) == data2[1] + data2[3] || ball1[1] + (ball1[3]/2) == data1[1]) {
     ySpeed*=-1;
   }
 }
+
