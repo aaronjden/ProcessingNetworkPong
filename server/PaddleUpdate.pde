@@ -1,18 +1,20 @@
 void serverEvent(Server s1, Client c1) {
-  p1 = !p1;
-  println(p1);
+  p1 = true;
+  p2 = true;
+//  println("p1" + p1);
 }
 
-void serverEvent1(Server s2, Client c2) {
-  p2 = !p2;
-}
+ void serverEvent1(Server s2, Client c2) {
+   p2 = !p2;
+   println(p2);
+ }
 
 void paddle1() {
   if (p1) {
     // Receive data1 from client
-    c = s1.available();
-    if (c != null) {
-      input = c.readString();
+    c1 = s1.available();
+    if (c1 != null) {
+      input = c1.readString();
       input = input.substring(0, input.indexOf("\n"));  // Only up to the newline
       data1 = int(split(input, ' '));  // Split values into an array
       // Draw line using received coords
@@ -30,9 +32,9 @@ void paddle1() {
 void paddle2() {
   if (p2) {
     // Receive data1 from client
-    c = s2.available();
-    if (c != null) {
-      input = c.readString();
+    c2 = s2.available();
+    if (c2 != null) {
+      input = c2.readString();
       input = input.substring(0, input.indexOf("\n")); // Only up to the newline
       data2 = int(split(input, ' ')); // Split values into an array
       fill(255, 0, 0);
@@ -44,4 +46,3 @@ void paddle2() {
     }
   }
 }
-

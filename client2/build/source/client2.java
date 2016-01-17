@@ -36,13 +36,13 @@ int ySize;
 int myRect[] = new int[4];
 
 public void setup() {
-  size(450, 255); 
+  size(450, 255);
   background(204);
 
   // Connect to the server\u2019s IP address and port\u00ad
-  c = new Client(this, "127.0.0.1", 12345); // Replace with your server\u2019s IP and port
-  c1 = new Client(this, "127.0.0.1", 12344); // Replace with your server\u2019s IP and port
-  ball = new Client(this, "127.0.0.1", 12346);
+  c = new Client(this, "127.0.0.1", 2345); // Replace with your server\u2019s IP and port
+  c1 = new Client(this, "127.0.0.1", 2344); // Replace with your server\u2019s IP and port
+  ball = new Client(this, "127.0.0.1", 2346);
   myRect[1] = 220;
   myRect[2] = 100;
   myRect[3] = 20;

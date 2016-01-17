@@ -6,7 +6,7 @@ void ballSetup() {
 }
 
 boolean ballUp = true;
-int xSpeed = 10;
+int xSpeed = 5;
 int ySpeed = 0;
 
 void drawBall() {
@@ -27,7 +27,7 @@ void moveBall() {
 }
 
 void wallBounce() {
-  if(ball1[0] == width-ball1[3] || ball1[0] == ball1[3]){
+  if(ball1[0] + ball1[3] == width || ball1[0] == ball1[3]){
     xSpeed *= -1;
   }
 }

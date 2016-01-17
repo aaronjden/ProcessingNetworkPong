@@ -1,7 +1,7 @@
 void ballUpdate() {
   // Receive data from server
   if (ball.available() > 0) {
-    input = c.readString();
+    input = ball.readString();
     input = input.substring(0, input.indexOf("\n"));  // Only up to the newline
     bl = int(split(input, ' '));  // Split values into an array
 
@@ -14,7 +14,7 @@ void ballUpdate() {
 void paddleUpdate() {
   // Receive data from server
   if (c1.available() > 0) {
-    input = c.readString();
+    input = c1.readString();
     input = input.substring(0, input.indexOf("\n"));  // Only up to the newline
     data = int(split(input, ' '));  // Split values into an array
 
@@ -23,4 +23,3 @@ void paddleUpdate() {
     input = null;
   }
 }
-
