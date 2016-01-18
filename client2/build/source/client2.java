@@ -20,8 +20,8 @@ public class client2 extends PApplet {
 
 
 
-Client c;
 Client c1;
+Client c2;
 Client ball;
 
 String input;
@@ -40,9 +40,10 @@ public void setup() {
   background(204);
 
   // Connect to the server\u2019s IP address and port\u00ad
-  c = new Client(this, "127.0.0.1", 2345); // Replace with your server\u2019s IP and port
-  c1 = new Client(this, "127.0.0.1", 2344); // Replace with your server\u2019s IP and port
+  c1 = new Client(this, "127.0.0.1", 2345); // Replace with your server\u2019s IP and port
+  c2 = new Client(this, "127.0.0.1", 2344); // Replace with your server\u2019s IP and port
   ball = new Client(this, "127.0.0.1", 2346);
+
   myRect[1] = 220;
   myRect[2] = 100;
   myRect[3] = 20;
@@ -55,11 +56,11 @@ public void draw() {
   fill(0, 0, 255);
   rect(myRect[0], myRect[1], myRect[2], myRect[3]);
 
-  c.write(myRect[0] + " " + myRect[1] + " " + myRect[2] + " " + myRect[3] + "\n");
+  c1.write(myRect[0] + " " + myRect[1] + " " + myRect[2] + " " + myRect[3] + "\n");
 
   // Receive data from server
   if (c1.available() > 0) {
-    input = c.readString();
+    input = c1.readString();
     input = input.substring(0, input.indexOf("\n"));  // Only up to the newline
     data = PApplet.parseInt(split(input, ' '));  // Split values into an array
 

@@ -20,12 +20,11 @@ public class client1 extends PApplet {
 
 
 
-Client c;
 Client c1;
+Client c2;
 Client ball;
 
 String input;
-String inpu;
 int data[];
 int bl[];
 
@@ -34,8 +33,8 @@ int paddle[] = new int[4];
 public void setup() {
   size(450, 255);
   // Connect to the server\u2019s IP address and port\u00ad
-  c = new Client(this, "127.0.0.1", 2344); // Replace with your server\u2019s IP and port
-  c1 = new Client(this, "127.0.0.1", 2345); // Replace with your server\u2019s IP and port
+  c1 = new Client(this, "127.0.0.1", 2344); // Replace with your server\u2019s IP and port
+  c2 = new Client(this, "127.0.0.1", 2345); // Replace with your server\u2019s IP and port
   ball = new Client(this, "127.0.0.1", 2346);
 
   paddle[1] = 20;
@@ -50,7 +49,7 @@ public void draw() {
   fill(255, 0, 0);
   rect(paddle[0], paddle[1], paddle[2], paddle[3]);
 
-  c.write(paddle[0] + " " + paddle[1] + " " + paddle[2] + " " + paddle[3] + "\n");
+  c1.write(paddle[0] + " " + paddle[1] + " " + paddle[2] + " " + paddle[3] + "\n");
 
   ballUpdate();
   paddleUpdate();
@@ -59,7 +58,7 @@ public void draw() {
 public void ballUpdate() {
   // Receive data from server
   if (ball.available() > 0) {
-    input = c.readString();
+    input = ball.readString();
     input = input.substring(0, input.indexOf("\n"));  // Only up to the newline
     bl = PApplet.parseInt(split(input, ' '));  // Split values into an array
 
@@ -72,7 +71,7 @@ public void ballUpdate() {
 public void paddleUpdate() {
   // Receive data from server
   if (c1.available() > 0) {
-    input = c.readString();
+    input = c1.readString();
     input = input.substring(0, input.indexOf("\n"));  // Only up to the newline
     data = PApplet.parseInt(split(input, ' '));  // Split values into an array
 

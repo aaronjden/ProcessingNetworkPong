@@ -25,7 +25,7 @@ void setup() {
   c1 = new Client(this, "127.0.0.1", 2345); // Replace with your server’s IP and port
   c2 = new Client(this, "127.0.0.1", 2344); // Replace with your server’s IP and port
   ball = new Client(this, "127.0.0.1", 2346);
-  
+
   myRect[1] = 220;
   myRect[2] = 100;
   myRect[3] = 20;

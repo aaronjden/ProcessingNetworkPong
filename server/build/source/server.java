@@ -21,20 +21,22 @@ public class server extends PApplet {
 Server s1;
 Server s2;
 Server ball;
-Client c;
+
+Client c1;
+Client c2;
 
 boolean p1 = false;
 boolean p2 = false;
 
+
 String input;
+
 int data1[] = new int[4];
 int data2[] = new int[4];
 int ball1[] = new int[4];
 
 int score1;
 int score2;
-boolean game;
-
 
 public void setup() {
   size(450, 255);
@@ -49,13 +51,8 @@ public void setup() {
 
 public void draw() {
   background(143);
-  drawBall();
-  paddle1();
-  paddle2();
+  playGame();
 
-  s2.write(data1[0] + " " + data1[1] + " " + data1[2] + " " + data1[3] + "\n");
-  s1.write(data2[0] + " " + data2[1] + " " + data2[2] + " " + data2[3] + "\n");
-  ball.write(ball1[0] + " " + ball1[1] + " " + ball1[2] + " " + ball1[3] + "\n");
 }
 public void ballSetup() {
   ball1[0] = width/2;
@@ -65,13 +62,15 @@ public void ballSetup() {
 }
 
 boolean ballUp = true;
-int xSpeed = 5;
-int ySpeed = 0;
+int xSpeed = 0;
+int ySpeed = 1;
 
 public void drawBall() {
-  game = true;
+  if (mousePressed) {
+    game = !game;
+  }
   fill(255);
-  if(game){
+  if (game) {
     moveBall();
     wallBounce();
     paddleBounce();
@@ -86,32 +85,54 @@ public void moveBall() {
 }
 
 public void wallBounce() {
-  if(ball1[0] + ball1[3] == width || ball1[0] == ball1[3]){
+  if (ball1[0] + ball1[3] == width || ball1[0] == ball1[3]) {
     xSpeed *= -1;
   }
 }
 
 public void paddleBounce() {
-  if(ball1[1] - ball1[3] == data1[1] || ball1[1] + ball1[3] == data2[1] - data2[3]){
+  if ((ball1[1] - (ball1[3]/2) == data2[1] + data2[3] && ball1[0] > data2[0] && ball1[0] < data2[0] + data2[2]) 
+  || (ball1[1] + (ball1[3]/2) == data1[1] && ball1[0] > data1[0] && ball1[0] < data1[0] + data1[2])) {
     ySpeed*=-1;
   }
 }
-public void serverEvent(Server s1, Client c1) {
-  p1 = !p1;
-  println("hi");
-}
 
-// void serverEvent1(Server s2, Client c2) {
-//   p2 = !p2;
-//   println("hi");
-// }
+boolean startScreen = true;
+boolean game = false;
+boolean pause = false;
+boolean gameOver = false;
+
+public void playGame(){
+  if (startScreen){
+    textAlign(CENTER);
+    text("Click The Mouse To \n Start!", height/2, width/2);
+    if (mousePressed){
+      startScreen = false;
+      game = true;
+    }
+  } else if (game){
+    drawBall();
+    paddle1();
+    paddle2();
+    s2.write(data1[0] + " " + data1[1] + " " + data1[2] + " " + data1[3] + "\n");
+    s1.write(data2[0] + " " + data2[1] + " " + data2[2] + " " + data2[3] + "\n");
+    ball.write(ball1[0] + " " + ball1[1] + " " + ball1[2] + " " + ball1[3] + "\n");
+  } else if (pause){
+    text("Click The Mouse To Resume", height/2, width/2);
+  }
+}
+public void serverEvent(Server s1, Client c1) {
+  p1 = true;
+  p2 = true;
+//  println("p1" + p1);
+}
 
 public void paddle1() {
   if (p1) {
     // Receive data1 from client
-    c = s1.available();
-    if (c != null) {
-      input = c.readString();
+    c1 = s1.available();
+    if (c1 != null) {
+      input = c1.readString();
       input = input.substring(0, input.indexOf("\n"));  // Only up to the newline
       data1 = PApplet.parseInt(split(input, ' '));  // Split values into an array
       // Draw line using received coords
@@ -129,9 +150,9 @@ public void paddle1() {
 public void paddle2() {
   if (p2) {
     // Receive data1 from client
-    c = s2.available();
-    if (c != null) {
-      input = c.readString();
+    c2 = s2.available();
+    if (c2 != null) {
+      input = c2.readString();
       input = input.substring(0, input.indexOf("\n")); // Only up to the newline
       data2 = PApplet.parseInt(split(input, ' ')); // Split values into an array
       fill(255, 0, 0);

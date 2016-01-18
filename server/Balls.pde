@@ -1,3 +1,5 @@
+float ball1[] = new float[4];
+
 void ballSetup() {
   ball1[0] = width/2;
   ball1[1] = height/2;
@@ -18,7 +20,7 @@ void drawBall() {
     moveBall();
     wallBounce();
     paddleBounce();
-
+    ballReset();
     ellipse(ball1[0], ball1[1], ball1[2], ball1[3]);
   }
 }
@@ -35,8 +37,19 @@ void wallBounce() {
 }
 
 void paddleBounce() {
-  if (ball1[1] - (ball1[3]/2) == data2[1] + data2[3] || ball1[1] + (ball1[3]/2) == data1[1]) {
+  if ((ball1[1] - (ball1[3]/2) == data2[1] + data2[3] && ball1[0] > data2[0] && ball1[0] < data2[0] + data2[2]) 
+    || (ball1[1] + (ball1[3]/2) == data1[1] && ball1[0] > data1[0] && ball1[0] < data1[0] + data1[2])) {
     ySpeed*=-1;
+  }
+}
+
+void ballReset() {
+  if (ball1[1] > height) {
+    ball1[1] = height/2;
+    ball1[0] = width/2;
+  } else if (ball1[1] < 0) {
+    ball1[1] = height/2;
+    ball1[0] = width/2;
   }
 }
 

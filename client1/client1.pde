@@ -7,7 +7,6 @@ Client c2;
 Client ball;
 
 String input;
-String inpu;
 int data[];
 int bl[];
 

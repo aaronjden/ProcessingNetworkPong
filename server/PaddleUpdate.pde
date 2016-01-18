@@ -1,3 +1,11 @@
+boolean p1 = false;
+boolean p2 = false;
+
+int data1[] = new int[4];
+int data2[] = new int[4];
+
+String input;
+
 void serverEvent(Server s1, Client c1) {
   p1 = true;
   p2 = true;
